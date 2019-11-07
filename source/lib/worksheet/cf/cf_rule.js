@@ -8,6 +8,7 @@ class CfRule { // §18.3.1.10 cfRule (Conditional Formatting Rule)
         this.priority = ruleConfig.priority;
         this.formula = ruleConfig.formula;
         this.dxfId = ruleConfig.dxfId;
+        this.operator = ruleConfig.operator;
 
         let foundType = CF_RULE_TYPES[this.type];
 
@@ -42,7 +43,9 @@ class CfRule { // §18.3.1.10 cfRule (Conditional Formatting Rule)
         if (this.priority !== undefined) {
             thisRule.att('priority', this.priority);
         }
-
+        if (this.operator !== undefined) {
+            thisRule.att('operator', this.operator);
+        }
         if (this.formula !== undefined) {
             thisRule.ele('formula').text(this.formula);
             thisRule.up();

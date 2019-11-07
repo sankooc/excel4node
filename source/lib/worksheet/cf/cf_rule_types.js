@@ -3,7 +3,8 @@
 
 module.exports = {
     cellIs: {
-        supported: false
+        supported: true,
+        requiredProps: ['dxfId', 'priority', 'formula']
     },
     expression: {
         supported: true,
