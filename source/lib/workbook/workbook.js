@@ -222,6 +222,12 @@ class Workbook {
     }
 
     /**
+     * return xlsx output stream
+     */
+    readstream() {
+        return builder.toStream(this)
+    }
+    /**
      * Add a worksheet to the Workbook
      * @param {String} name Name of the Worksheet
      * @param {Object} opts Options for Worksheet. See Worksheet class definition

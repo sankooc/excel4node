@@ -627,7 +627,34 @@ let workbookXML = (wb) => {
   });
 }
 
+let toStream = (wb) => {
+  let promiseObj = {
+    wb: wb,
+    xlsx: new JSZip(),
+    xmlOutVars: {}
+  };
+
+  if (promiseObj.wb.sheets.length === 0) {
+    promiseObj.wb.Worksheet();
+  }
+
+  return addRootContentTypesXML(promiseObj)
+    .then(addWorksheetsXML)
+    .then(addRootRelsXML)
+    .then(addWorkbookXML)
+    .then(addWorkbookRelsXML)
+    .then(addCorePropertiesXML)
+    .then(addSharedStringsXML)
+    .then(addStylesXML)
+    .then(addDrawingsXML)
+    .then(() => {
+      wb.opts.jszip.type = 'nodebuffer';
+      wb.opts.jszip.streamFiles = true;
+      return promiseObj.xlsx.generateNodeStream(wb.opts.jszip);
+    });
+};
 module.exports = {
   writeToBuffer,
+  toStream,
   workbookXML
 };
